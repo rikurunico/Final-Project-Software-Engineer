@@ -1,54 +1,34 @@
 BEGIN
-    READ AND WRITE list AS ARRAY
-    READ AND WRITE task AS STRING
-    READ AND WRITE choice AS STRING
-    
-    LOOP
-        PRINT "Todo List"
-        PRINT "1. Create Task"
-        PRINT "2. Read Tasks"
-        PRINT "3. Update Task"
-        PRINT "4. Delete Task"
-        PRINT "5. Exit"
-        
-        INPUT choice
-        
-        IF choice = "1" THEN
-            INPUT task
-            STORE task WITH list
+    PRINT "Welcome to the Todo List!"
+    WHILE (choice != 5)
+        PRINT "1. Add a new task"
+        PRINT "2. Display all tasks"
+        PRINT "3. Update a task"
+        PRINT "4. Delete a task"
+        PRINT "5. Stop"
+
+        READ choice
+
+        IF (choice == 1)
+            READ task
+            ADD task to todo list
             PRINT "Task added!"
-        ELSE IF choice = "2" THEN
-            IF list IS EMPTY THEN
-                PRINT "No tasks found"
-            ELSE
-                PRINT "Tasks:"
-                FOR EACH task IN list
-                    PRINT task
-                END FOR
-            END IF
-        ELSE IF choice = "3" THEN
-            INPUT task
-            IF task IN list THEN
-                INPUT new_task
-                REPLACE task WITH new_task IN list
-                PRINT "Task updated!"
-            ELSE
-                PRINT "Task not found!"
-            END IF
-        ELSE IF choice = "4" THEN
-            INPUT task
-            IF task IN list THEN
-                REMOVE task FROM list
-                PRINT "Task deleted!"
-            ELSE
-                PRINT "Task not found!"
-            END IF
-        ELSE IF choice = "5" THEN
-            BREAK
+        ELSE IF (choice == 2)
+            PRINT todo list
+        ELSE IF (choice == 3)
+            READ task
+            UPDATE task in todo list
+            PRINT "Task updated!"
+        ELSE IF (choice == 4)
+            READ task
+            DELETE task from todo list
+            PRINT "Task deleted!"
+        ELSE IF (choice == 5)
+            PRINT "Goodbye!"
         ELSE
             PRINT "Invalid choice!"
         END IF
-    END LOOP
+    END WHILE
 END
 
 Flowchart Using Mermaid (https://mermaidjs.github.io/)
@@ -56,32 +36,16 @@ flowchart TB;
     Start((Start)) --> A[Todo List];
     A --> B[/Input Choice/];
     B --> C{Choice};
-    C -->|1| D[Create Task];
-    C -->|2| E[Read Tasks];
-    C -->|3| F[Update Task];
-    C -->|4| G[Delete Task];
-    C -->|5| H[Exit];
-    D --> I{Task};
-    I -->|Yes| J[/Input Task/];
-    J --> input[Task added!]
-    input --> A;
-    I -->|No| J1[Task not added!];
-    J1 --> A;
-    E --> K{Tasks};
-    K -->|Yes| L[Display Tasks];
-    L --> A;
-    K -->|No| M[No tasks found];
-    M --> A;
-    F --> N{Task};
-    N -->|Exists| O[New Task];
-    O --> |Yes| update[/Update task/]
-    update -->P[Task updated!];
-    P --> A;
-    O -->|No| Q[Task not found!];
-    Q --> A;
-    G --> R{Task};
-    R -->|Exists| S[Task deleted!];
-    S --> A;
-    R -->|No| T[Task not found!];
-    T --> A;
-    H --> U((End));
+    C -->|1| D[/Input New Task/];
+    D --> E[Task added!];
+    E --> A;
+    C -->|2| F[Display Tasks];
+    F --> A;
+    C -->|3| G[/Input Task/];
+    G --> H[Task updated!];
+    H --> A;
+    C -->|4| I[Delete Task];
+    I --> J[Task deleted!];
+    J --> A;
+    C -->|5| K[Stop];
+    K --> L((End));
