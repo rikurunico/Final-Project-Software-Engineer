@@ -53,7 +53,8 @@ END
 
 Flowchart Using Mermaid (https://mermaidjs.github.io/)
 flowchart TB;
-    Start((Start)) --> B[/Todo List/];
+    Start((Start)) --> A[Todo List];
+    A --> B[/Input Choice/];
     B --> C{Choice};
     C -->|1| D[Create Task];
     C -->|2| E[Read Tasks];
@@ -61,24 +62,26 @@ flowchart TB;
     C -->|4| G[Delete Task];
     C -->|5| H[Exit];
     D --> I{Task};
-    I -->|Yes| J[Task added!];
-    J --> B;
+    I -->|Yes| J[/Input Task/];
+    J --> input[Task added!]
+    input --> A;
     I -->|No| J1[Task not added!];
-    J1 --> B;
+    J1 --> A;
     E --> K{Tasks};
     K -->|Yes| L[Display Tasks];
-    L --> B;
+    L --> A;
     K -->|No| M[No tasks found];
-    M --> B;
+    M --> A;
     F --> N{Task};
     N -->|Exists| O[New Task];
-    O -->|Yes| P[Task updated!];
-    P --> B;
+    O --> |Yes| update[/Update task/]
+    update -->P[Task updated!];
+    P --> A;
     O -->|No| Q[Task not found!];
-    Q --> B;
+    Q --> A;
     G --> R{Task};
     R -->|Exists| S[Task deleted!];
-    S --> B;
+    S --> A;
     R -->|No| T[Task not found!];
-    T --> B;
+    T --> A;
     H --> U((End));
