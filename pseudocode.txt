@@ -7,7 +7,7 @@ BEGIN
         PRINT "4. Delete a task"
         PRINT "5. Stop"
 
-        READ choice
+        READ and WRITE choice
 
         IF (choice == 1)
             READ task
