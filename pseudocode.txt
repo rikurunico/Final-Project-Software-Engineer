@@ -1,0 +1,84 @@
+BEGIN
+    READ AND WRITE list AS ARRAY
+    READ AND WRITE task AS STRING
+    READ AND WRITE choice AS STRING
+    
+    LOOP
+        PRINT "Todo List"
+        PRINT "1. Create Task"
+        PRINT "2. Read Tasks"
+        PRINT "3. Update Task"
+        PRINT "4. Delete Task"
+        PRINT "5. Exit"
+        
+        INPUT choice
+        
+        IF choice = "1" THEN
+            INPUT task
+            STORE task WITH list
+            PRINT "Task added!"
+        ELSE IF choice = "2" THEN
+            IF list IS EMPTY THEN
+                PRINT "No tasks found"
+            ELSE
+                PRINT "Tasks:"
+                FOR EACH task IN list
+                    PRINT task
+                END FOR
+            END IF
+        ELSE IF choice = "3" THEN
+            INPUT task
+            IF task IN list THEN
+                INPUT new_task
+                REPLACE task WITH new_task IN list
+                PRINT "Task updated!"
+            ELSE
+                PRINT "Task not found!"
+            END IF
+        ELSE IF choice = "4" THEN
+            INPUT task
+            IF task IN list THEN
+                REMOVE task FROM list
+                PRINT "Task deleted!"
+            ELSE
+                PRINT "Task not found!"
+            END IF
+        ELSE IF choice = "5" THEN
+            BREAK
+        ELSE
+            PRINT "Invalid choice!"
+        END IF
+    END LOOP
+END
+
+Flowchart Using Mermaid (https://mermaidjs.github.io/)
+flowchart TB;
+    Start((Start)) --> B[/Todo List/];
+    B --> C{Choice};
+    C -->|1| D[Create Task];
+    C -->|2| E[Read Tasks];
+    C -->|3| F[Update Task];
+    C -->|4| G[Delete Task];
+    C -->|5| H[Exit];
+    D --> I{Task};
+    I -->|Yes| J[Task added!];
+    J --> B;
+    I -->|No| J1[Task not added!];
+    J1 --> B;
+    E --> K{Tasks};
+    K -->|Yes| L[Display Tasks];
+    L --> B;
+    K -->|No| M[No tasks found];
+    M --> B;
+    F --> N{Task};
+    N -->|Exists| O[New Task];
+    O -->|Yes| P[Task updated!];
+    P --> B;
+    O -->|No| Q[Task not found!];
+    Q --> B;
+    G --> R{Task};
+    R -->|Exists| S[Task deleted!];
+    S --> B;
+    R -->|No| T[Task not found!];
+    T --> B;
+    H --> U((End));
